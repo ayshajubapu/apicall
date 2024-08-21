@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa';
 
 const Footer = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const styles = getStyles(windowWidth);
+
   return (
     <footer style={styles.footer}>
       <div style={styles.container}>
@@ -19,45 +29,49 @@ const Footer = () => {
   );
 }
 
-const styles = {
-  footer: {
-    backgroundColor: '#fff',
-    padding: '20px 0',
-    borderTop: '1px solid #ddd',
-  },
-  container: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '0 20px',
-  },
-  left: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  logo: {
-    width: '40px',
-    height: '40px',
-  },
-  logoText: {
-    marginLeft: '10px',
-    fontSize: '24px',
-    fontWeight: 'bold',
-  },
-  right: {
-    display: 'flex',
-    gap: '15px',
-  },
-  icon: {
-    fontSize: '24px',
-    color: '#000',
-    transition: 'color 0.10s',
-  },
-  iconHover: {
-    color: '#0083b1',
-  }
+const getStyles = (windowWidth) => {
+  const isMobile = windowWidth <= 576;
+  const isTablet = windowWidth <= 768 && windowWidth > 576;
+
+  return {
+    footer: {
+      backgroundColor: '#fff',
+      padding: isMobile ? '10px 0' : '20px 0',
+      borderTop: '1px solid #ddd',
+    },
+    container: {
+      display: 'flex',
+      flexDirection: isMobile ? 'column' : 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      maxWidth: '1200px',
+      margin: '0 auto',
+      padding: '0 20px',
+    },
+    left: {
+      display: 'flex',
+      alignItems: 'center',
+      marginBottom: isMobile ? '10px' : '0',
+    },
+    logo: {
+      width: isMobile ? '30px' : '40px',
+      height: isMobile ? '30px' : '40px',
+    },
+    logoText: {
+      marginLeft: isMobile ? '5px' : '10px',
+      fontSize: isMobile ? '18px' : '24px',
+      fontWeight: 'bold',
+    },
+    right: {
+      display: 'flex',
+      gap: isMobile ? '10px' : '15px',
+    },
+    icon: {
+      fontSize: isMobile ? '20px' : '24px',
+      color: '#000',
+      transition: 'color 0.10s',
+    },
+  };
 }
 
 export default Footer;

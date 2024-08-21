@@ -1,34 +1,94 @@
+/* Navbar styling */
 .navbar {
-    background-color: #333; /* Background color of the navbar */
-    padding: 10px 20px; /* Padding inside the navbar */
-    position: fixed; /* Fixed position at the top of the page */
-    width: 100%; /* Full width */
-    top: 0; /* Distance from the top */
-    z-index: 1000; /* Ensure the navbar is above other content */
+  background-color: #333; /* Background color of the navbar */
+  padding: 10px 20px; /* Padding inside the navbar */
+  position: fixed; /* Fixed position at the top of the page */
+  width: 100%; /* Full width */
+  top: 0; /* Distance from the top */
+  z-index: 1000; /* Ensure the navbar is above other content */
+  display: flex;
+  justify-content: space-between; /* Space out the logo and navbar items */
+  align-items: center; /* Center items vertically */
+}
+
+.navbar-nav {
+  list-style-type: none; /* Remove default list styles */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+}
+
+.nav-item {
+  margin-right: 15px; /* Adjust spacing between navbar items */
+}
+
+.login-button {
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* Text color */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .navbar {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: flex-start; /* Align items to the start */
   }
-  
+
   .navbar-nav {
-    list-style-type: none; /* Remove default list styles */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end; /* Align items to the right */
+    display: block; /* Stack items vertically */
+    width: 100%; /* Full width to fit the screen */
   }
-  
+
   .nav-item {
-    margin-right: 15px; /* Adjust spacing between navbar items */
+    margin: 10px 0; /* Adjust spacing between navbar items */
   }
-  
+
   .login-button {
-    background-color: #007bff; /* Blue background */
-    color: #fff; /* Text color */
+    margin-top: 10px; /* Add margin for spacing */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 10px; /* Adjust padding for smaller screens */
+  }
+
+  .nav-item {
+    font-size: 0.875rem; /* Reduce font size for smaller screens */
+  }
+}
+
+/* Optional: Add a hamburger menu for very small screens */
+.hamburger-menu {
+  display: none; /* Hidden by default */
+}
+
+@media (max-width: 576px) {
+  .hamburger-menu {
+    display: block; /* Show the hamburger menu on very small screens */
+    background-color: #333; /* Background color of the menu */
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 8px;
     cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
-  
-  .login-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+
+  .navbar-nav {
+    display: none; /* Hide navbar items by default */
   }
-  
+
+  .navbar-nav.show {
+    display: block; /* Show items when the menu is toggled */
+  }
+}

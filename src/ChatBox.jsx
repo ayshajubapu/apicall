@@ -26,8 +26,7 @@ async function fetchJobData(jobTitle, location) {
     console.log('API Response:', result);
 
     if (result.data && result.data.length > 0) {
-      // Assuming the API returns an array of job data
-      return result.data[0]; // Return the first job data item
+      return result.data[0];
     } else {
       return null;
     }
@@ -49,7 +48,7 @@ function ChatBox() {
       setMessages([...messages, newMessage]);
 
       const [jobTitle, location] = input.split(',').map(part => part.trim());
-      
+
       setLoading(true);
       const result = await fetchJobData(jobTitle, location);
 
@@ -78,17 +77,17 @@ function ChatBox() {
   };
 
   return (
-    <div className="relative min-h-screen transition-colors duration-500 bg-gray-200">
-      <div className="flex justify-center items-center h-screen">
+    <div className="relative min-h-screen bg-gray-200">
+      <div className="flex justify-center items-center h-[50vh] md:h-screen">
         <img
           src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="img"
-          className="w-[1000px] h-[600px] rounded-lg shadow-lg mr-[15px]"
+          className="w-full max-w-4xl h-auto rounded-lg shadow-lg"
         />
       </div>
 
-      <div className="absolute bottom-0 right-0 mb-[50px] mr-[15px] flex justify-center">
-        <div className="w-[300px] bg-gray-100 p-2 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105">
+      <div className="absolute bottom-0 right-0 mb-4 md:mb-8 mr-4 md:mr-8 flex justify-center">
+        <div className="w-full max-w-sm bg-gray-100 p-2 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105">
           <div className="flex flex-col h-full bg-white rounded-lg shadow-md overflow-hidden">
             <div className="flex flex-col flex-grow p-2 overflow-auto">
               {messages.map((message, index) => (
@@ -110,14 +109,14 @@ function ChatBox() {
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 className="w-full px-2 py-1 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="designation"
+                placeholder="Enter job title, location"
               />
               <button
                 onClick={handleSendMessage}
                 className="ml-2 p-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 cursor-pointer"
               >
                 <svg
-                  className="h-4 w-4 cursor-pointer"
+                  className="h-4 w-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -139,7 +138,7 @@ function ChatBox() {
       {/* Job Data Container */}
       {loading && (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-75">
-          <div className="w-[700px] h-[700px] bg-white rounded-2xl p-6 shadow-lg">
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-lg">
             <p className="text-lg font-bold">Loading...</p>
           </div>
         </div>
@@ -147,13 +146,12 @@ function ChatBox() {
 
       {jobData && !loading && (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-75">
-          <div className="w-[700px] h-[700px] bg-white rounded-2xl p-6 shadow-lg overflow-y-auto">
+          <div className="w-full max-w-md bg-white rounded-2xl p-6 shadow-lg overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">Job Details</h2>
             <div className="p-4 border rounded-lg shadow-sm">
               <h3 className="font-semibold">Title: {jobData.title}</h3>
               <p className="text-sm text-gray-600">Location: {jobData.location}</p>
               <p className="text-sm text-gray-600">Max Salary: ${jobData.maxSalary}</p>
-            
             </div>
             <button
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 cursor-pointer"
